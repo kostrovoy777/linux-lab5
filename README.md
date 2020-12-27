@@ -11,3 +11,9 @@
 ![](b.jpg)
 
 Далее создадим виртуальную группу командой ```sudo vgcreate labgr /dev/sdb``` и проверим корректность создания командами ```sudo vgdisplay -v labgr``` и ```sudo vgs```:
+
+![](c.jpg)
+
+Повторим похожие действия для создания логической группы ```sudo lvcreate -l+100%FREE -n first labgr``` и проверяем ```sudo lvdisplay``` ```sudo lvs```:
+
+![](d.jpg)
