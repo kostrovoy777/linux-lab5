@@ -31,3 +31,42 @@
 Для этого просто выполним команду ```sudo dd if=/dev/zero of=/mnt/mock.file bs=1M count=4500 status=progress``` чтобы побайтово скопировать в файл 4500 чанков по 1М, после чего проверим состояние командой ```df -h```:
 
 ![](g.jpg)
+
+## 3. Расширить vg, lv и файловую систему.
+
+Введём команды:
+```
+sudo pvcreate /dev/sdc
+sudo vgextend labgr /dev/sdc
+sudo lvextend -l+100%FREE /dev/labgr/first
+sudo lvdisplay
+sudo lvs
+sudo df -h
+```
+Результат:
+
+![](h.jpg)
+
+Теперь произведём расширение файловой системы:
+
+```
+sudo resize2fs /dev/labgr/first
+sudo df -h
+```
+![](i.jpg)
+
+## 4. Уменьшить файловую систему.
+
+Для уменьшения ФС отмонтируем её, после чего пересоберём том и систему. При уменьшении размеров системы необходимо учитывать минимальное пространство, которое ей необходимо, чтобы не обрезать нужные файлы, поэтому был оставлен небольшой запас:
+
+```
+sudo umount /mnt
+sudo fsck -fy /dev/labgr/first
+sudo resize2fs /dev/labgr/first 2100M             
+//sudo resize2fs -M /dev/labgr/first чтобы ужать систему до возножного минимума
+sudo mount /dev/labgr/first /mnt
+sudo df -h
+```
+
+![](j.jpg)
+
