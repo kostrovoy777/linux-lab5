@@ -59,13 +59,49 @@ sudo df -h
 
 Для уменьшения ФС отмонтируем её, после чего пересоберём том и систему. При уменьшении размеров системы необходимо учитывать минимальное пространство, которое ей необходимо, чтобы не обрезать нужные файлы, поэтому был оставлен небольшой запас:
 
-```
+```bash
 sudo umount /mnt
 sudo fsck -fy /dev/labgr/first
-sudo resize2fs /dev/labgr/first 2100M             
-//sudo resize2fs -M /dev/labgr/first чтобы ужать систему до возножного минимума
+sudo resize2fs /dev/labgr/first 2100M
+sudo lvreduce -L 2100M /dev/labgr/first
 sudo mount /dev/labgr/first /mnt
+
+# Проверяем память
+sudo lvdisplay
+sudo lvs
 sudo df -h
+```
+
+Проверка lvm:
+
+```
+admin@localhost:~$ sudo lvreduce -L 2100M /dev/labgr/first
+  WARNING: Reducing active logical volume to 2.05 GiB.
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+Do you really want to reduce labgr/first? [y/n]: y
+  Size of logical volume labgr/first changed from 3.90 GiB (998 extents) to 2.05 GiB (525 extents).
+  Logical volume labgr/first successfully resized.
+admin@localhost:~$ sudo lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/labgr/first
+  LV Name                first
+  VG Name                labgr
+  LV UUID                xGsWRM-zh4x-hwJq-FU3m-8Dp8-oR9U-kky23h
+  LV Write Access        read/write
+  LV Creation host, time stretch, 2020-12-27 13:28:34 +0000
+  LV Status              available
+  # open                 1
+  LV Size                2.05 GiB
+  Current LE             525
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           254:0
+
+admin@localhost:~$ sudo lvs
+  LV    VG    Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  first labgr -wi-ao---- 2.05g                                                    
 ```
 
 ![](j.jpg)
