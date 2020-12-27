@@ -17,3 +17,17 @@
 Повторим похожие действия для создания логической группы ```sudo lvcreate -l+100%FREE -n first labgr``` и проверяем ```sudo lvdisplay``` ```sudo lvs```:
 
 ![](d.jpg)
+
+![](da.jpg)
+
+Создадим файловую систему ```sudo mkfs.ext4 /dev/mai/first``` и смонтируем её ```sudo mount /dev/labgr/first /mnt``` ```sudo mount```:
+
+![](e.jpg)
+
+![](f.jpg)
+
+## 2. Создать файл, заполенный нулями на весь размер точки монтирования.
+
+Для этого просто выполним команду ```sudo dd if=/dev/zero of=/mnt/mock.file bs=1M count=4500 status=progress``` чтобы побайтово скопировать в файл 4500 чанков по 1М, после чего проверим состояние командой ```df -h```:
+
+![](g.jpg)
