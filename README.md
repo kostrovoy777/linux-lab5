@@ -67,44 +67,12 @@ sudo lvreduce -L 2100M /dev/labgr/first
 sudo mount /dev/labgr/first /mnt
 
 # Проверяем память
-sudo lvdisplay
 sudo lvs
 sudo df -h
 ```
-
-Проверка lvm:
-
-```
-admin@localhost:~$ sudo lvreduce -L 2100M /dev/labgr/first
-  WARNING: Reducing active logical volume to 2.05 GiB.
-  THIS MAY DESTROY YOUR DATA (filesystem etc.)
-Do you really want to reduce labgr/first? [y/n]: y
-  Size of logical volume labgr/first changed from 3.90 GiB (998 extents) to 2.05 GiB (525 extents).
-  Logical volume labgr/first successfully resized.
-admin@localhost:~$ sudo lvdisplay
-  --- Logical volume ---
-  LV Path                /dev/labgr/first
-  LV Name                first
-  VG Name                labgr
-  LV UUID                xGsWRM-zh4x-hwJq-FU3m-8Dp8-oR9U-kky23h
-  LV Write Access        read/write
-  LV Creation host, time stretch, 2020-12-27 13:28:34 +0000
-  LV Status              available
-  # open                 1
-  LV Size                2.05 GiB
-  Current LE             525
-  Segments               2
-  Allocation             inherit
-  Read ahead sectors     auto
-  - currently set to     256
-  Block device           254:0
-
-admin@localhost:~$ sudo lvs
-  LV    VG    Attr       LSize Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-  first labgr -wi-ao---- 2.05g                                                    
-```
-
-![](j.jpg)
+![](j1.jpg)
+![](j2.jpg)
+![](j3.jpg)
 
 ## 5. Создать несколько новых файлов и создать снимок.
 
