@@ -70,9 +70,9 @@ sudo mount /dev/labgr/first /mnt
 sudo lvs
 sudo df -h
 ```
-![](j1.jpg)
-![](j2.jpg)
-![](j3.jpg)
+![](j1.png)
+![](j2.png)
+![](j3.png)
 
 ## 5. Создать несколько новых файлов и создать снимок.
 
